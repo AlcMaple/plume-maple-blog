@@ -1,0 +1,29 @@
+:root {
+    /* --vp-c-brand-1: #000; */
+    --vp-footer-height: 0;
+}
+
+.hero-name,
+.hero-tagline,
+.hero-text {
+    -webkit-text-fill-color: initial !important;
+    color: #000 !important;
+}
+
+.container{
+    /* max-width: 100% !important; */
+}
+
+footer {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .vp-back-to-top{
+        bottom: 64px !important;
+    }
+}
+
+.vp-back-to-top{
+    bottom: 64px !important;
+}
