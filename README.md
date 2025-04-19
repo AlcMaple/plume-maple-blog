@@ -5,7 +5,13 @@ The Site is generated using [vuepress](https://vuepress.vuejs.org/) and [vuepres
 ## Install
 
 ```sh
+git clone https://github.com/AlcMaple/plume-maple-blog.git
+cd plume-maple-blog
 npm i
+
+git clone https://github.com/AlcMaple/PlumeMapleBlogAPI.git
+cd PlumeMapleBlogAPI
+pip install -r requirements.txt
 ```
 
 ## Usage
@@ -13,14 +19,15 @@ npm i
 ```sh
 # start dev server
 npm run docs:dev
+
+python app.py
+```
+
+## Deploy
+
+```sh
 # build for production
 npm run docs:build
-# preview production build in local
-npm run docs:preview
-# update vuepress and theme
-npm run vp-update
-# update site
-./deploy.sh
 ```
 
 ## Documents
