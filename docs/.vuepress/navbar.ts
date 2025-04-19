@@ -8,9 +8,9 @@ export const navbar = defineNavbarConfig([
   {
     text: '笔记',
     items: [
-      { text: 'JavaScript', link: '/notes/JavaScript/README.md' },
-      // { text: '示例', link: '/notes/demo/README.md' },
-      // { text: '示例2', link: '/notes/demo2/README.md' }
+      // { text: 'JavaScript', link: '/notes/JavaScript/README.md' },
+      { text: '示例', link: '/notes/demo/README.md' },
+      { text: '示例2', link: '/notes/demo2/README.md' }
     ]
   },
 ])

@@ -1,10 +1,10 @@
 import { defineClientConfig } from 'vuepress/client'
-import Tabs from '/Users/mac/Downloads/plume-maple-blog/node_modules/vuepress-theme-plume/node_modules/vuepress-plugin-md-power/lib/client/components/Tabs.vue'
-import CodeTabs from '/Users/mac/Downloads/plume-maple-blog/node_modules/vuepress-theme-plume/node_modules/vuepress-plugin-md-power/lib/client/components/CodeTabs.vue'
-import Plot from '/Users/mac/Downloads/plume-maple-blog/node_modules/vuepress-theme-plume/node_modules/vuepress-plugin-md-power/lib/client/components/Plot.vue'
-import FileTreeItem from '/Users/mac/Downloads/plume-maple-blog/node_modules/vuepress-theme-plume/node_modules/vuepress-plugin-md-power/lib/client/components/FileTreeItem.vue'
+import Tabs from '/Users/mac/plume-maple-blog/node_modules/vuepress-theme-plume/node_modules/vuepress-plugin-md-power/lib/client/components/Tabs.vue'
+import CodeTabs from '/Users/mac/plume-maple-blog/node_modules/vuepress-theme-plume/node_modules/vuepress-plugin-md-power/lib/client/components/CodeTabs.vue'
+import Plot from '/Users/mac/plume-maple-blog/node_modules/vuepress-theme-plume/node_modules/vuepress-plugin-md-power/lib/client/components/Plot.vue'
+import FileTreeItem from '/Users/mac/plume-maple-blog/node_modules/vuepress-theme-plume/node_modules/vuepress-plugin-md-power/lib/client/components/FileTreeItem.vue'
 
-import '/Users/mac/Downloads/plume-maple-blog/node_modules/vuepress-theme-plume/node_modules/vuepress-plugin-md-power/lib/client/styles/index.css'
+import '/Users/mac/plume-maple-blog/node_modules/vuepress-theme-plume/node_modules/vuepress-plugin-md-power/lib/client/styles/index.css'
 
 export default defineClientConfig({
   enhance({ router, app }) {

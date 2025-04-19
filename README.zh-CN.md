@@ -1,4 +1,4 @@
-# plume-maple-blog
+# my-vuepress-site
 
 网站使用 [vuepress](https://vuepress.vuejs.org/) 和 [vuepress-theme-plume](https://github.com/pengzhanbo/vuepress-theme-plume) 构建生成。
 
@@ -19,15 +19,9 @@ npm run docs:build
 npm run docs:preview
 # 更新 vuepress 和主题
 npm run vp-update
-# 更新网站
-./deploy.sh
 ```
 
 ## 文档
 
 - [vuepress](https://vuepress.vuejs.org/)
 - [vuepress-theme-plume](https://theme-plume.vuejs.press/)
-
-## 感谢
-
-感谢 [pengzhanbo](https://github.com/pengzhanbo) 提供的主题模板。

@@ -11,9 +11,26 @@ export default defineUserConfig({
   head: [
     // 配置站点图标
     ['link', { rel: 'icon', type: 'image/png', href: '/logo.png' }],
+    // 配置不蒜子统计
+    ['script', {
+      src: '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js',
+      async: true,
+      'data-pjax-transient': ''  // 添加参数以避免PJAX影响
+    }]
   ],
 
-  bundler: viteBundler(),
+  bundler: viteBundler({
+    viteOptions: {
+      server: {
+        proxy: {
+          '/api': {
+            target: 'http://localhost:5001',
+            changeOrigin: true,
+          }
+        }
+      }
+    }
+  }),
   shouldPrefetch: false, // 站点较大，页面数量较多时，不建议启用
 
   theme: plumeTheme({

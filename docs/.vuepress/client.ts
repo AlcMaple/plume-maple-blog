@@ -6,8 +6,11 @@ import './theme/styles/index.css'
 // import Swiper from 'vuepress-theme-plume/features/Swiper.vue'
 
 // import CustomComponent from './theme/components/Custom.vue'
+// import Custom from './theme/components/Custom.vue'
+import PageStats from './theme/components/PageStats.vue'
 
 // import './theme/styles/custom.css'
+
 
 export default defineClientConfig({
   enhance({ app }) {
@@ -19,5 +22,7 @@ export default defineClientConfig({
 
     // your custom components
     // app.component('CustomComponent', CustomComponent)
+    // app.component('Custom', Custom)
+    app.component('PageStats', PageStats)
   },
 })
