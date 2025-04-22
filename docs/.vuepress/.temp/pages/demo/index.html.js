@@ -1,4 +1,4 @@
-import comp from "/Users/mac/plume-maple-blog/docs/.vuepress/.temp/pages/demo/index.html.vue"
+import comp from "/Users/mac/Downloads/del/plume-maple-blog/docs/.vuepress/.temp/pages/demo/index.html.vue"
 const data = JSON.parse("{\"path\":\"/demo/\",\"title\":\"Demo\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"Demo\",\"createTime\":\"2025/03/30 14:21:24\",\"permalink\":\"/demo/\"},\"headers\":[],\"readingTime\":{\"minutes\":0.04,\"words\":13},\"filePathRelative\":\"notes/demo/README.md\"}")
 export { comp, data }
 
