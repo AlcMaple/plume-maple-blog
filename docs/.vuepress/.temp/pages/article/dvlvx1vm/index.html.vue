@@ -285,7 +285,7 @@
 <p>脚注 2 链接<sup class="footnote-ref"><a href="#footnote2">[2]</a><a class="footnote-anchor" id="footnote-ref2"></a></sup>。</p>
 <p>行内的脚注<sup class="footnote-ref"><a href="#footnote3">[3]</a><a class="footnote-anchor" id="footnote-ref3"></a></sup> 定义。</p>
 <p>重复的页脚定义<sup class="footnote-ref"><a href="#footnote2">[2:1]</a><a class="footnote-anchor" id="footnote-ref2:1"></a></sup>。</p>
-<hr class="footnotes-sep">
+<Comments /><hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
 <li id="footnote1" class="footnote-item"><p>脚注 <strong>可以包含特殊标记</strong></p>

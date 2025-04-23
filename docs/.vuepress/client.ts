@@ -8,6 +8,7 @@ import './theme/styles/index.css'
 // import CustomComponent from './theme/components/Custom.vue'
 // import Custom from './theme/components/Custom.vue'
 import PageStats from './theme/components/PageStats.vue'
+import Comments from './theme/components/Comments.vue'
 
 // import './theme/styles/custom.css'
 
@@ -24,5 +25,6 @@ export default defineClientConfig({
     // app.component('CustomComponent', CustomComponent)
     // app.component('Custom', Custom)
     app.component('PageStats', PageStats)
+    app.component('Comments', Comments)
   },
 })
