@@ -32,7 +32,10 @@
         </div>
 
         <!-- 回复表单 - 对主评论的回复 -->
-        <div v-if="replyingTo === comment.id" class="reply-form">
+        <div
+          v-if="replyingTo === comment.id && !replyingToSecondLevel"
+          class="reply-form"
+        >
           <div class="comment-form">
             <div v-if="error" class="form-error">{{ error }}</div>
 
@@ -64,7 +67,12 @@
 
         <!-- 子评论区域 -->
         <div
-          v-if="getCommentReplies(comment.id).length > 0"
+          v-if="
+            getCommentReplies(comment.id).length > 0 ||
+            (replyingTo !== null &&
+              replyingToParentId === comment.id &&
+              replyingToSecondLevel)
+          "
           class="replies-container"
         >
           <div
@@ -90,9 +98,94 @@
               v-html="formatContent(reply.content)"
             ></div>
             <div class="reply-actions">
-              <button class="reply-button" @click="replyTo(reply, comment.id)">
+              <button
+                class="reply-button"
+                @click="replyToSecondLevel(reply, comment.id)"
+              >
                 回复
               </button>
+            </div>
+
+            <!-- 对二级评论的回复表单 (新增) -->
+            <div
+              v-if="replyingTo === reply.id && replyingToSecondLevel"
+              class="second-level-reply-form"
+            >
+              <div class="comment-form">
+                <div v-if="error" class="form-error">{{ error }}</div>
+
+                <div class="form-group">
+                  <textarea
+                    v-model="replyContent"
+                    rows="4"
+                    :placeholder="`回复 ${reply.author || '游客'}...`"
+                    required
+                  ></textarea>
+                </div>
+
+                <div class="form-actions">
+                  <button
+                    type="submit"
+                    class="submit-button"
+                    @click="submitReply(reply)"
+                    :disabled="isSubmittingReply"
+                  >
+                    {{ isSubmittingReply ? "提交中..." : "提交回复" }}
+                  </button>
+
+                  <button
+                    type="button"
+                    class="cancel-button"
+                    @click="cancelReply"
+                  >
+                    取消
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 对二级评论区域的最后添加回复表单 (如果当前要回复的是二级评论但尚未渲染) -->
+          <div
+            v-if="
+              replyingToSecondLevel &&
+              replyingToParentId === comment.id &&
+              !getCommentReplies(comment.id).some((r) => r.id === replyingTo)
+            "
+            class="reply-item"
+          >
+            <div class="second-level-reply-form">
+              <div class="comment-form">
+                <div v-if="error" class="form-error">{{ error }}</div>
+
+                <div class="form-group">
+                  <textarea
+                    v-model="replyContent"
+                    rows="4"
+                    placeholder="回复..."
+                    required
+                  ></textarea>
+                </div>
+
+                <div class="form-actions">
+                  <button
+                    type="submit"
+                    class="submit-button"
+                    @click="submitReply({ id: replyingTo })"
+                    :disabled="isSubmittingReply"
+                  >
+                    {{ isSubmittingReply ? "提交中..." : "提交回复" }}
+                  </button>
+
+                  <button
+                    type="button"
+                    class="cancel-button"
+                    @click="cancelReply"
+                  >
+                    取消
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -137,6 +230,7 @@ export default {
       isLoading: true,
       replyingTo: null,
       replyingToParentId: null, // 跟踪二级评论的父评论ID
+      replyingToSecondLevel: false, // 是否正在回复二级评论
       error: "",
       commentContent: "",
       replyContent: "",
@@ -260,7 +354,7 @@ export default {
 
       try {
         // 确定父评论ID和回复目标ID
-        const parentId = this.replyingToParentId || targetComment.id;
+        let parentId = this.replyingToParentId || targetComment.id;
         const replyToId = targetComment.id;
 
         // 提交回复到后端
@@ -285,6 +379,7 @@ export default {
           this.error = "";
           this.replyingTo = null;
           this.replyingToParentId = null;
+          this.replyingToSecondLevel = false;
           this.fetchComments();
         } else {
           this.error = result.message || "回复提交失败";
@@ -297,17 +392,26 @@ export default {
       }
     },
 
-    // 回复评论
-    replyTo(comment, parentId = null) {
+    // 回复一级评论
+    replyTo(comment) {
       this.replyingTo = comment.id;
-      // 如果是回复子评论，记录原始父评论ID
+      this.replyingToParentId = null;
+      this.replyingToSecondLevel = false;
+      this.replyContent = "";
+    },
+
+    // 回复二级评论 (新增)
+    replyToSecondLevel(reply, parentId) {
+      this.replyingTo = reply.id;
       this.replyingToParentId = parentId;
+      this.replyingToSecondLevel = true;
       this.replyContent = "";
     },
 
     cancelReply() {
       this.replyingTo = null;
       this.replyingToParentId = null;
+      this.replyingToSecondLevel = false;
     },
 
     formatDate(timestamp) {
@@ -376,7 +480,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .plume-comments {
   margin-top: 2rem;
   padding-top: 2rem;
@@ -474,12 +578,20 @@ export default {
   border-color: rgba(255, 255, 255, 0.3);
 }
 
-.reply-form {
+.reply-form,
+.second-level-reply-form {
   margin-top: 1rem;
-  margin-left: 3.5rem;
   padding: 1rem;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 4px;
+}
+
+.reply-form {
+  margin-left: 3.5rem;
+}
+
+.second-level-reply-form {
+  margin-left: 2.8rem;
 }
 
 .no-comments {
@@ -668,7 +780,8 @@ export default {
   }
 
   .reply-content,
-  .reply-actions {
+  .reply-actions,
+  .second-level-reply-form {
     margin-left: 0;
   }
 }
@@ -716,7 +829,8 @@ html:not(.dark):not([data-theme="dark"]) .plume-comments {
     background: rgba(0, 0, 0, 0.03);
   }
 
-  .reply-form {
+  .reply-form,
+  .second-level-reply-form {
     background: rgba(0, 0, 0, 0.03);
   }
 
